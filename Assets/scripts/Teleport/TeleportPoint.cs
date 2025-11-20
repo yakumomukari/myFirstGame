@@ -1,0 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TeleportPoint : MonoBehaviour, IInteractable
+{
+    public GameSceneEventSO gameSceneTOGO;
+    public SceneLoadEventSO LoadEventSO;
+    public Vector3 teleportTOGO;
+    public void TriggerAction()
+    {
+        Debug.Log("teleport!");
+
+        LoadEventSO.RaiseLoadRequestEvent(gameSceneTOGO, teleportTOGO, false);
+        // Debug.Log("1");
+    }
+}

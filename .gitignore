@@ -1,0 +1,99 @@
+
+# Unity generated files
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+sysinfo.txt
+
+# User-specific files
+*.pidb
+*.suo
+*.user
+*.userprefs
+*.csproj
+*.unityproj
+*.sln
+*.sln.dotsettings
+*.vcxproj
+*.pidb.meta
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# MonoDevelop
+*.pidb
+*.booproj
+
+# Visual Studio / VSCode / Rider
+/.vs/
+/.vscode/
+/.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS generated
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Build results
+*.apk
+*.aab
+*.unitypackage
+*.xcworkspace/
+*.xcuserdata/
+DerivedData/
+*.app
+*.dSYM/
+
+# Crash reporting
+crashlytics-build.properties
+com.crashlytics.android.ndk.properties
+
+# Gradle
+/.gradle/
+/.gradle-cache/
+
+# Packed Addressables, cache, and generated files
+/Library/ScriptAssemblies/
+/Library/ArtifactDB/
+/Library/PackageCache/
+/Library/PackageManager/
+
+# Asset import/export and temporary files
+ExportedObj/
+*.orig
+*.bak
+
+# Unity Cloud Build
+/build/
+/Build/
+/Builds/
+
+# JetBrains Rider
+/.idea/
+*.sln.iml
+
+# User settings (local overrides)
+/UserSettings/
+
+# Optional: Uncomment if you store secrets or large files in this folder
+#/Assets/StreamingAssets/Secrets/
+
+# Keep track of meta files (important for Unity asset tracking)
+!/*.meta
+
+# LFS and Git config helpers (not ignore, but examples)
+#*.psd filter=lfs diff=lfs merge=lfs -text
+
+# Prevent ignoring these folders if you intentionally want to keep them
+!Assets/
+!ProjectSettings/
+
+# End of file
+
