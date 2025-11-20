@@ -30,7 +30,6 @@ public class AudioManager : MonoBehaviour
 
     private void OnFXEvent(AudioClip clip)
     {
-        FXSource.clip = clip;
-        FXSource.Play();
+        FXSource.PlayOneShot(clip);
     }
 }

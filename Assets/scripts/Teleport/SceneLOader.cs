@@ -38,6 +38,8 @@ public class SceneLOader : MonoBehaviour
 
     private void OnLoadRequestEvent(GameSceneEventSO locTOGO, Vector3 posTOGO, bool fade)
     {
+        if (isLoading) return;
+        isLoading = true;
         locationTOGO = locTOGO;
         positionTOGO = posTOGO;
         fadeScene = fade;
@@ -73,5 +75,6 @@ public class SceneLOader : MonoBehaviour
         {
             //TODO fade
         }
+        isLoading = false;
     }
 }
