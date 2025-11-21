@@ -527,6 +527,7 @@ GameObject:
   - component: {fileID: 420539076}
   - component: {fileID: 420539078}
   - component: {fileID: 420539079}
+  - component: {fileID: 420539080}
   m_Layer: 7
   m_Name: ///player
   m_TagString: Untagged
@@ -871,6 +872,27 @@ MonoBehaviour:
   playAudioEvent: {fileID: 11400000, guid: 2d471ebbbd0642842851f430cdb7e5ac, type: 2}
   audioClip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
   playOnEnable: 0
+--- !u!114 &420539080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420539068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69479ccc64f14b438ba2b12eaea4b87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxSource: {fileID: 453547215}
+  loopSource: {fileID: 0}
+  footstepClips: []
+  slideClip: {fileID: 8300000, guid: f43e03e4a9587164e908cb6d84bb58c2, type: 3}
+  hurtClip: {fileID: 8300000, guid: b9eff218e132a4e76be78840eca96fb2, type: 3}
+  footstepCooldown: 0.28
+  footstepPitchMin: 0.95
+  footstepPitchMax: 1.05
+  sfxVolume: 1
 --- !u!1 &453547213
 GameObject:
   m_ObjectHideFlags: 0

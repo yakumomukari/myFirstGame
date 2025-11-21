@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Audio;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
 	public PlayerInputControl inputControl;
+	private PlayerAudioController playerAudioController;
 	private Rigidbody2D rb;
 	public Vector2 inputDirection;
 	private PhysicsCheck physicsCheck;
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
 		coll = GetComponent<Collider2D>();
 		character = GetComponent<Character>();
 		imageShake = GetComponent<ImageShake>();
+		playerAudioController = GetComponent<PlayerAudioController>();
 
 		// jump
 		inputControl.Gameplay.Jump.started += Jump;
@@ -116,6 +119,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if (physicsCheck.isGround && !isAttack && !isSlide)
 			{
+				playerAudioController.PlaySlide();
 				playerAnimations.PlaySlide();
 				character.currentPower -= powerConsume;
 				isSlide = true;
@@ -175,6 +179,7 @@ public class PlayerController : MonoBehaviour
 	}
 	public void GetHurt(Transform attakcer)
 	{
+		playerAudioController.PlayHurt();
 		isHurt = true;
 		isDamageInvulnerable = true;
 		rb.velocity = Vector2.zero;

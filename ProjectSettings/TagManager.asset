@@ -8,6 +8,7 @@ TagManager:
   - Water
   - Spike
   - Interactable
+  - Teleport
   layers:
   - Default
   - TransparentFX

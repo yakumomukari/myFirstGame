@@ -11,6 +11,9 @@ public class Sign : MonoBehaviour
     public GameObject signSprite;
     public Transform playerTrans;
     public IInteractable targetItem;
+    public Collider2D targetItemDetail;
+    public AudioSource FXsource;
+    public AudioClip teleportFX;
     public bool canPress;
     private void Awake()
     {
@@ -37,6 +40,10 @@ public class Sign : MonoBehaviour
         if (canPress)
         {
             targetItem.TriggerAction();
+            if (targetItemDetail.CompareTag("Teleport"))
+            {
+                FXsource.PlayOneShot(teleportFX);
+            }
         }
     }
 
@@ -60,10 +67,11 @@ public class Sign : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Interactable"))
+        if (other.CompareTag("Interactable") || other.CompareTag("Teleport"))
         {
             canPress = true;
             targetItem = other.GetComponent<IInteractable>();
+            targetItemDetail = other;
             // Debug.Log(other);
             // Debug.Log(targetItem);
         }

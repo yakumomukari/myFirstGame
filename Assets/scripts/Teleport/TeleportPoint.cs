@@ -9,7 +9,6 @@ public class TeleportPoint : MonoBehaviour, IInteractable
     public Vector3 teleportTOGO;
     public void TriggerAction()
     {
-        Debug.Log("teleport!");
 
         LoadEventSO.RaiseLoadRequestEvent(gameSceneTOGO, teleportTOGO, false);
         // Debug.Log("1");
