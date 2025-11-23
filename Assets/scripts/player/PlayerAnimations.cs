@@ -28,7 +28,6 @@ public class PlayerAnimations : MonoBehaviour
 		anim.SetBool("isGround", physicsCheck.isGround);
 		anim.SetBool("isDead", playerController.isDead);
 		anim.SetBool("isAttack", playerController.isAttack);
-		//TODO slide wall animation
 		anim.SetBool("isWall", playerController.isWallSlide);
 	}
 	public void PlayHurt()

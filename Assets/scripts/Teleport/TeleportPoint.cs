@@ -10,7 +10,7 @@ public class TeleportPoint : MonoBehaviour, IInteractable
     public void TriggerAction()
     {
 
-        LoadEventSO.RaiseLoadRequestEvent(gameSceneTOGO, teleportTOGO, false);
+        LoadEventSO.RaiseLoadRequestEvent(gameSceneTOGO, teleportTOGO, true);
         // Debug.Log("1");
     }
 }

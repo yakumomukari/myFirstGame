@@ -21,13 +21,12 @@ public class SceneLOader : MonoBehaviour
     private bool isLoading;
     public float fadeDuratrion;
     public VoidEventSO afterSceneLoadedEvent;
-    private void Awake()
-    {
-    }
+
+    public FadeEventSO fadeEvent;
     //TODO mainmenu
     private void Start()
     {
-        Debug.Log("START!");
+        // Debug.Log("START!");
         NewGame();
     }
     private void OnEnable()
@@ -56,18 +55,23 @@ public class SceneLOader : MonoBehaviour
         fadeScene = fade;
         if (currentLoadScene != null)
         {
+            // Debug.Log("1");
             StartCoroutine(UnLoadPreviousScene());
         }
         else
         {
+            // Debug.Log("2");
             LoadNewScene();
         }
     }
     private IEnumerator UnLoadPreviousScene()
     {
+        Debug.Log(fadeScene);
         if (fadeScene)
         {
             //TODO fade
+            Debug.Log("?");
+            fadeEvent.FadeIn(fadeDuratrion);
         }
         yield return new WaitForSeconds(fadeDuratrion);
         yield return currentLoadScene.sceneRefetence.UnLoadScene();
@@ -90,6 +94,7 @@ public class SceneLOader : MonoBehaviour
         if (fadeScene)
         {
             //TODO fade
+            fadeEvent.FadeOut(fadeDuratrion);
         }
         isLoading = false;
         afterSceneLoadedEvent.RaiseEvent();
