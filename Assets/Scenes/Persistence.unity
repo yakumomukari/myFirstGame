@@ -280,6 +280,7 @@ MonoBehaviour:
   loadEventSO: {fileID: 11400000, guid: 040a38b36bc0c3044a16d07ef0cd3425, type: 2}
   positionTOGO: {x: 0, y: 0, z: 0}
   fadeDuratrion: 0
+  afterSceneLoadedEvent: {fileID: 11400000, guid: 4b77e2f205f847440b007a5968a3f9da, type: 2}
 --- !u!1 &274053572
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,6 +1926,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   signSprite: {fileID: 1685064883}
   playerTrans: {fileID: 420539070}
+  targetItemDetail: {fileID: 0}
+  FXsource: {fileID: 453547215}
+  teleportFX: {fileID: 8300000, guid: 4e1ff8faed12a475eba9be0e46072269, type: 3}
   canPress: 0
 --- !u!61 &1088315257
 BoxCollider2D:
@@ -2196,6 +2200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impulseSource: {fileID: 1374260244}
   cameraShakeEvent: {fileID: 11400000, guid: 76f4cb646cbcc7f44834c366918141af, type: 2}
+  afterSceneLoadedEvent: {fileID: 11400000, guid: 4b77e2f205f847440b007a5968a3f9da, type: 2}
 --- !u!114 &1494329584
 MonoBehaviour:
   m_ObjectHideFlags: 0

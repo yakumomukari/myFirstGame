@@ -10,6 +10,7 @@ public class Sign : MonoBehaviour
     private PlayerInputControl playerInput;
     public GameObject signSprite;
     public Transform playerTrans;
+    private PlayerController playerController;
     public IInteractable targetItem;
     public Collider2D targetItemDetail;
     public AudioSource FXsource;
@@ -69,11 +70,24 @@ public class Sign : MonoBehaviour
     {
         if (other.CompareTag("Interactable") || other.CompareTag("Teleport"))
         {
-            canPress = true;
-            targetItem = other.GetComponent<IInteractable>();
-            targetItemDetail = other;
-            // Debug.Log(other);
-            // Debug.Log(targetItem);
+            // 若玩家处于滑铲或攻击状态，禁止交互
+            if (playerController == null && playerTrans != null)
+            {
+                playerController = playerTrans.GetComponent<PlayerController>();
+            }
+
+            bool blocked = false;
+            if (playerController != null)
+            {
+                if (playerController.isSlide || playerController.isAttack) blocked = true;
+            }
+
+            canPress = !blocked;
+            if (canPress)
+            {
+                targetItem = other.GetComponent<IInteractable>();
+                targetItemDetail = other;
+            }
         }
         else
         {
@@ -85,3 +99,4 @@ public class Sign : MonoBehaviour
         canPress = false;
     }
 }
+

@@ -9,6 +9,8 @@ public class CameraControl : MonoBehaviour
     private CinemachineConfiner2D confiner2D;
     public CinemachineImpulseSource impulseSource;
     public VoidEventSO cameraShakeEvent;
+
+    public VoidEventSO afterSceneLoadedEvent;
     private void Awake()
     {
         confiner2D = GetComponent<CinemachineConfiner2D>();
@@ -22,12 +24,18 @@ public class CameraControl : MonoBehaviour
     private void OnEnable()
     {
         cameraShakeEvent.OnEventRaised += OnCameraShakeEvent;
+        afterSceneLoadedEvent.OnEventRaised += OnLoadedSceneEvent;
     }
 
+    private void OnLoadedSceneEvent()
+    {
+        GetNewCameraBound();
+    }
 
     private void OnDisable()
     {
         cameraShakeEvent.OnEventRaised -= OnCameraShakeEvent;
+        afterSceneLoadedEvent.OnEventRaised -= OnLoadedSceneEvent;
     }
     private void OnCameraShakeEvent()
     {

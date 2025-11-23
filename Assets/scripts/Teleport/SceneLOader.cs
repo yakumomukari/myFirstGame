@@ -9,9 +9,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneLOader : MonoBehaviour
 {
-    public Transform playerTrans
-    ;
+    public Transform playerTrans;
     public GameSceneEventSO firstLoadScene;
+    public Vector3 firstPosition;
     public SceneLoadEventSO loadEventSO;
 
     private GameSceneEventSO currentLoadScene;
@@ -20,11 +20,15 @@ public class SceneLOader : MonoBehaviour
     private bool fadeScene;
     private bool isLoading;
     public float fadeDuratrion;
+    public VoidEventSO afterSceneLoadedEvent;
     private void Awake()
     {
-        // Addressables.LoadSceneAsync(firstLoadScene.sceneRefetence, LoadSceneMode.Additive);
-        currentLoadScene = firstLoadScene;
-        currentLoadScene.sceneRefetence.LoadSceneAsync(LoadSceneMode.Additive);
+    }
+    //TODO mainmenu
+    private void Start()
+    {
+        Debug.Log("START!");
+        NewGame();
     }
     private void OnEnable()
     {
@@ -36,6 +40,13 @@ public class SceneLOader : MonoBehaviour
 
     }
 
+    public void NewGame()
+    {
+        locationTOGO = firstLoadScene;
+        OnLoadRequestEvent(locationTOGO, firstPosition, true);
+    }
+
+
     private void OnLoadRequestEvent(GameSceneEventSO locTOGO, Vector3 posTOGO, bool fade)
     {
         if (isLoading) return;
@@ -43,11 +54,14 @@ public class SceneLOader : MonoBehaviour
         locationTOGO = locTOGO;
         positionTOGO = posTOGO;
         fadeScene = fade;
-
-        // Debug.Log(locationTOGO.sceneRefetence.SubObjectName);
-        // Debug.Log("?");
         if (currentLoadScene != null)
+        {
             StartCoroutine(UnLoadPreviousScene());
+        }
+        else
+        {
+            LoadNewScene();
+        }
     }
     private IEnumerator UnLoadPreviousScene()
     {
@@ -57,6 +71,7 @@ public class SceneLOader : MonoBehaviour
         }
         yield return new WaitForSeconds(fadeDuratrion);
         yield return currentLoadScene.sceneRefetence.UnLoadScene();
+        playerTrans.gameObject.SetActive(false);
         LoadNewScene();
     }
     private void LoadNewScene()
@@ -71,10 +86,12 @@ public class SceneLOader : MonoBehaviour
         playerTrans.position = positionTOGO;
         // Debug.Log(positionTOGO);
         // Debug.Log(playerTrans.position);
+        playerTrans.gameObject.SetActive(true);
         if (fadeScene)
         {
             //TODO fade
         }
         isLoading = false;
+        afterSceneLoadedEvent.RaiseEvent();
     }
 }
