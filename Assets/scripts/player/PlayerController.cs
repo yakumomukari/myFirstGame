@@ -7,6 +7,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+	public SceneLoadEventSO loadEventSO;
+	public VoidEventSO afterLoadedSO;
+
+
 	public PlayerInputControl inputControl;
 	private PlayerAudioController playerAudioController;
 	private Rigidbody2D rb;
@@ -65,10 +69,16 @@ public class PlayerController : MonoBehaviour
 	private void OnEnable()
 	{
 		inputControl.Enable();
+		loadEventSO.LoadSceneRequestEvent += OnLoadingEvent;
+		afterLoadedSO.OnEventRaised += AfterLoadSceneEvent;
 	}
+
+
 	private void OnDisable()
 	{
 		inputControl.Disable();
+		afterLoadedSO.OnEventRaised -= AfterLoadSceneEvent;
+		loadEventSO.LoadSceneRequestEvent -= OnLoadingEvent;
 	}
 	private void Update()
 	{
@@ -102,6 +112,16 @@ public class PlayerController : MonoBehaviour
 	// {
 	// 	// Debug.Log(enemy.name);
 	// }
+	private void OnLoadingEvent(GameSceneEventSO arg0, Vector3 arg1, bool arg2)
+	{
+		inputControl.Gameplay.Disable();
+		Debug.Log("dis");
+	}
+	private void AfterLoadSceneEvent()
+	{
+		inputControl.Gameplay.Enable();
+		Debug.Log("enable");
+	}
 	public void Move()
 	{
 		// 行走

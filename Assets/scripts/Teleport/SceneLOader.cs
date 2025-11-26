@@ -42,7 +42,8 @@ public class SceneLOader : MonoBehaviour
     public void NewGame()
     {
         locationTOGO = firstLoadScene;
-        OnLoadRequestEvent(locationTOGO, firstPosition, true);
+        // OnLoadRequestEvent(locationTOGO, firstPosition, true);
+        loadEventSO.RaiseLoadRequestEvent(locationTOGO, firstPosition, true);
     }
 
 
@@ -97,6 +98,7 @@ public class SceneLOader : MonoBehaviour
             fadeEvent.FadeOut(fadeDuratrion);
         }
         isLoading = false;
-        afterSceneLoadedEvent.RaiseEvent();
+        if (currentLoadScene.sceneTpye == SceneTpye.Location)
+            afterSceneLoadedEvent.RaiseEvent();
     }
 }
