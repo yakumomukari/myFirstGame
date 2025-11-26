@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  currentHealth: 0
+  currentHealth: 50
   invulnerableDuration: 0.1
   invulnerable: 0
   OnTakeDamage:
@@ -364,3 +364,4 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  newGameEvent: {fileID: 11400000, guid: e325ed8fc85362c4bb3e9d2901364024, type: 2}

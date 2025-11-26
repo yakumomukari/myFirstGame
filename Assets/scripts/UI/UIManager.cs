@@ -30,10 +30,10 @@ public class UIManager : MonoBehaviour
         {
             playerStateBar.gameObject.SetActive(false);
         }
-        if (sceneTOGO.sceneTpye == SceneTpye.Location)
-        {
-            playerStateBar.gameObject.SetActive(true);
-        }
+        // if (sceneTOGO.sceneTpye == SceneTpye.Location)
+        // {
+        //     playerStateBar.gameObject.SetActive(true);
+        // }
     }
     private void OnPowerEvent(Character obj)
     {

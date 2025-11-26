@@ -19,6 +19,6 @@ public class FadeCanvas : MonoBehaviour
     public void OnFadeEvent(Color targetcol, float duration, bool isIn)
     {
         fadeImage.DOBlendableColor(targetcol, duration);
-        Debug.Log("FADE");
+        // Debug.Log("FADE");
     }
 }

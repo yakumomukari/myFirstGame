@@ -276,12 +276,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTrans: {fileID: 420539070}
-  firstLoadScene: {fileID: 11400000, guid: 6730f8fe7badd884f9e477ed59db181d, type: 2}
-  firstPosition: {x: 120, y: 22, z: 0}
+  uiManager: {fileID: 1044253349}
+  firstLoadScene: {fileID: 11400000, guid: f8dc380a74a774343bb3ca14a4217ec4, type: 2}
+  menuLoadScene: {fileID: 11400000, guid: 6730f8fe7badd884f9e477ed59db181d, type: 2}
+  firstPosition: {x: 121, y: 24, z: 0}
+  menuPosition: {x: 120, y: 22, z: 0}
   loadEventSO: {fileID: 11400000, guid: 040a38b36bc0c3044a16d07ef0cd3425, type: 2}
   positionTOGO: {x: 0, y: 0, z: 0}
   fadeDuratrion: 0.5
   afterSceneLoadedEvent: {fileID: 11400000, guid: 4b77e2f205f847440b007a5968a3f9da, type: 2}
+  newGameEvent: {fileID: 11400000, guid: e325ed8fc85362c4bb3e9d2901364024, type: 2}
   fadeEvent: {fileID: 11400000, guid: f846f2e61be88104581c8993508f9ad1, type: 2}
 --- !u!1 &274053572
 GameObject:
@@ -599,7 +603,7 @@ Transform:
   m_GameObject: {fileID: 420539068}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 120.12, y: 22.21, z: 0}
+  m_LocalPosition: {x: 121, y: 24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -681,6 +685,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4f119508debd24eb1872c8d35e388b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadEventSO: {fileID: 11400000, guid: 040a38b36bc0c3044a16d07ef0cd3425, type: 2}
+  afterLoadedSO: {fileID: 11400000, guid: 4b77e2f205f847440b007a5968a3f9da, type: 2}
   inputDirection: {x: 0, y: 0}
   speed: 340
   jumpForce: 16.5
@@ -860,6 +866,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  newGameEvent: {fileID: 11400000, guid: e325ed8fc85362c4bb3e9d2901364024, type: 2}
 --- !u!114 &420539079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1345,7 +1352,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000000037233523, y: 2.5521321e-12, z: 9.502487e-21, w: 1}
-  m_LocalPosition: {x: 37.861732, y: -36.050785, z: -0.6225662}
+  m_LocalPosition: {x: 38.74173, y: -34.260784, z: -0.6225662}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1997,6 +2004,7 @@ MonoBehaviour:
   playerStateBar: {fileID: 1871583278}
   healthEvent: {fileID: 11400000, guid: ba3c02152b69a9a4fa2f604eaf34b951, type: 2}
   powerEvent: {fileID: 11400000, guid: ba3c02152b69a9a4fa2f604eaf34b951, type: 2}
+  loadEventSO: {fileID: 11400000, guid: 040a38b36bc0c3044a16d07ef0cd3425, type: 2}
 --- !u!1 &1088315254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2298,7 +2306,7 @@ Transform:
   m_GameObject: {fileID: 1494329578}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 37.861732, y: -36.050785, z: -0.6225662}
+  m_LocalPosition: {x: 38.74173, y: -34.260784, z: -0.6225662}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2478,7 +2486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1602977555
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,13 +16,28 @@ public class EnemyCharacter : MonoBehaviour
     public bool invulnerable;
     public UnityEvent<Transform> OnTakeDamage;
     public UnityEvent OnDie;
+
+    public VoidEventSO newGameEvent;
+
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
     }
-    private void Start()
+    private void OnEnable()
+    {
+        newGameEvent.OnEventRaised += NewGame;
+    }
+    private void OnDisable()
+    {
+        newGameEvent.OnEventRaised -= NewGame;
+    }
+    public void NewGame()
     {
         currentHealth = maxHealth;
+        // Debug.Log("zhu man xie");
+        // OnHealthChange?.Invoke(this);
+        // currentPower = maxPower;
+        // OnPowerChange?.Invoke(this);
     }
     private void Update()
     {

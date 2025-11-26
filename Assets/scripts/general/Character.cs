@@ -20,11 +20,21 @@ public class Character : MonoBehaviour
 	public UnityEvent<Character> OnHealthChange;
 	public UnityEvent<Character> OnPowerChange;
 	public UnityEvent OnDie;
+
+	public VoidEventSO newGameEvent;
 	private void Awake()
 	{
 		playerController = GetComponent<PlayerController>();
 	}
-	private void Start()
+	private void OnEnable()
+	{
+		newGameEvent.OnEventRaised += NewGame;
+	}
+	private void OnDisable()
+	{
+		newGameEvent.OnEventRaised -= NewGame;
+	}
+	public void NewGame()
 	{
 		currentHealth = maxHealth;
 		OnHealthChange?.Invoke(this);

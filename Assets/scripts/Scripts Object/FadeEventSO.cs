@@ -11,12 +11,12 @@ public class FadeEventSO : ScriptableObject
     public void FadeIn(float duration)
     {
         RaiseEvent(Color.black, duration, true);
-        Debug.Log("in");
+        // Debug.Log("in");
     }
     public void FadeOut(float duration)
     {
         RaiseEvent(Color.clear, duration, false);
-        Debug.Log("out");
+        // Debug.Log("out");
     }
     public void RaiseEvent(Color target, float duration, bool isIn)
     {

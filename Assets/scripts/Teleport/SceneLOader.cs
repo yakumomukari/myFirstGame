@@ -10,8 +10,13 @@ using UnityEngine.SceneManagement;
 public class SceneLOader : MonoBehaviour
 {
     public Transform playerTrans;
+
+    public UIManager uiManager;
+
     public GameSceneEventSO firstLoadScene;
+    public GameSceneEventSO menuLoadScene;
     public Vector3 firstPosition;
+    public Vector3 menuPosition;
     public SceneLoadEventSO loadEventSO;
 
     private GameSceneEventSO currentLoadScene;
@@ -22,20 +27,29 @@ public class SceneLOader : MonoBehaviour
     public float fadeDuratrion;
     public VoidEventSO afterSceneLoadedEvent;
 
+    public VoidEventSO newGameEvent;
+
     public FadeEventSO fadeEvent;
+
     //TODO mainmenu
+    private void Awake()
+    {
+    }
     private void Start()
     {
+        loadEventSO.RaiseLoadRequestEvent(menuLoadScene, menuPosition, true);
         // Debug.Log("START!");
-        NewGame();
+        // NewGame();
     }
     private void OnEnable()
     {
         loadEventSO.LoadSceneRequestEvent += OnLoadRequestEvent;
+        newGameEvent.OnEventRaised += NewGame;
     }
     private void OnDisable()
     {
         loadEventSO.LoadSceneRequestEvent -= OnLoadRequestEvent;
+        newGameEvent.OnEventRaised -= NewGame;
 
     }
 
@@ -67,12 +81,13 @@ public class SceneLOader : MonoBehaviour
     }
     private IEnumerator UnLoadPreviousScene()
     {
-        Debug.Log(fadeScene);
+        // Debug.Log(fadeScene);
         if (fadeScene)
         {
             //TODO fade
-            Debug.Log("?");
+            // Debug.Log("?");
             fadeEvent.FadeIn(fadeDuratrion);
+            // if (currentLoadScene.sceneTpye == SceneTpye.Location) uiManager.playerStateBar.gameObject.SetActive(false);
         }
         yield return new WaitForSeconds(fadeDuratrion);
         yield return currentLoadScene.sceneRefetence.UnLoadScene();
@@ -96,6 +111,7 @@ public class SceneLOader : MonoBehaviour
         {
             //TODO fade
             fadeEvent.FadeOut(fadeDuratrion);
+            if (currentLoadScene.sceneTpye == SceneTpye.Location) uiManager.playerStateBar.gameObject.SetActive(true);
         }
         isLoading = false;
         if (currentLoadScene.sceneTpye == SceneTpye.Location)

@@ -115,12 +115,12 @@ public class PlayerController : MonoBehaviour
 	private void OnLoadingEvent(GameSceneEventSO arg0, Vector3 arg1, bool arg2)
 	{
 		inputControl.Gameplay.Disable();
-		Debug.Log("dis");
+		// Debug.Log("dis");
 	}
 	private void AfterLoadSceneEvent()
 	{
 		inputControl.Gameplay.Enable();
-		Debug.Log("enable");
+		// Debug.Log("enable");
 	}
 	public void Move()
 	{
