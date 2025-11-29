@@ -52731,6 +52731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23cad4630f22845adc13e708a57416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: Forest_chest_1
   openSprite: {fileID: -386314363, guid: aabfcf1c029174c4c8b3d5c7ede40e42, type: 3}
   closeSprite: {fileID: -1462327295, guid: aabfcf1c029174c4c8b3d5c7ede40e42, type: 3}
   isDone: 0

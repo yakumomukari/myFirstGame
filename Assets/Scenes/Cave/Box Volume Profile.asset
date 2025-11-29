@@ -29,7 +29,7 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 14.91
+    m_Value: 12.09
   contrast:
     m_OverrideState: 1
     m_Value: 0

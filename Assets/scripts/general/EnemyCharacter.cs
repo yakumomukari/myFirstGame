@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyCharacter : MonoBehaviour
+public class EnemyCharacter : MonoBehaviour, ISaveable
 {
     private PlayerController playerController;
     [Header("基本属性")]
@@ -26,10 +26,14 @@ public class EnemyCharacter : MonoBehaviour
     private void OnEnable()
     {
         newGameEvent.OnEventRaised += NewGame;
+        ISaveable saveable = this;
+        saveable.RegisterSaveData();
     }
     private void OnDisable()
     {
         newGameEvent.OnEventRaised -= NewGame;
+        ISaveable saveable = this;
+        saveable.UnRegisterSaveData();
     }
     public void NewGame()
     {
@@ -74,6 +78,36 @@ public class EnemyCharacter : MonoBehaviour
         {
             invulnerable = true;
             invulnerableCounter = invulnerableDuration;
+        }
+    }
+
+    public DataDefinition GetDataID()
+    {
+        return GetComponent<DataDefinition>();
+    }
+
+    public void GetSaveData(Data data)
+    {
+        var nowID = GetDataID().ID;
+        if (data.characterPosDict.ContainsKey(nowID))
+        {
+            data.floatDict[nowID + "health"] = this.currentHealth;
+            data.characterPosDict[nowID] = transform.position;
+        }
+        else
+        {
+            data.floatDict.Add(nowID + "health", this.currentHealth);
+            data.characterPosDict.Add(nowID, transform.position);
+        }
+    }
+
+    public void LoadData(Data data)
+    {
+        var nowID = GetDataID().ID;
+        if (data.characterPosDict.ContainsKey(nowID))
+        {
+            transform.position = data.characterPosDict[nowID];
+            this.currentHealth = data.floatDict[nowID + "health"];
         }
     }
 }

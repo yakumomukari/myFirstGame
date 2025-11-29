@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, ISaveable
 {
 	private PlayerController playerController;
 	[Header("基本属性")]
@@ -29,10 +29,14 @@ public class Character : MonoBehaviour
 	private void OnEnable()
 	{
 		newGameEvent.OnEventRaised += NewGame;
+		ISaveable saveable = this;
+		saveable.RegisterSaveData();
 	}
 	private void OnDisable()
 	{
 		newGameEvent.OnEventRaised -= NewGame;
+		ISaveable saveable = this;
+		saveable.UnRegisterSaveData();
 	}
 	public void NewGame()
 	{
@@ -97,6 +101,41 @@ public class Character : MonoBehaviour
 		{
 			invulnerable = true;
 			invulnerableCounter = invulnerableDuration;
+		}
+	}
+
+	public DataDefinition GetDataID()
+	{
+		return GetComponent<DataDefinition>();
+	}
+
+	public void GetSaveData(Data data)
+	{
+		var nowID = GetDataID().ID;
+		if (data.characterPosDict.ContainsKey(nowID))
+		{
+			data.characterPosDict[nowID] = transform.position;
+			data.floatDict[nowID + "health"] = this.currentHealth;
+			data.floatDict[nowID + "power"] = this.currentPower;
+		}
+		else
+		{
+			data.characterPosDict.Add(nowID, transform.position);
+			data.floatDict.Add(nowID + "health", this.currentHealth);
+			data.floatDict.Add(nowID + "power", this.currentPower);
+		}
+	}
+
+	public void LoadData(Data data)
+	{
+		var nowID = GetDataID().ID;
+		if (data.characterPosDict.ContainsKey(nowID))
+		{
+			transform.position = data.characterPosDict[nowID];
+			this.currentHealth = data.floatDict[nowID + "health"];
+			this.currentPower = data.floatDict[nowID + "power"];
+			OnHealthChange?.Invoke(this);
+			OnPowerChange?.Invoke(this);
 		}
 	}
 }

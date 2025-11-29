@@ -6,3 +6,8 @@ public enum SceneTpye
 {
     Location, Menu, Backpack
 }
+
+public enum PersistentType
+{
+    ReadWrite, DoNotPersist
+}

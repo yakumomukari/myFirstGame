@@ -7,7 +7,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-public class SceneLOader : MonoBehaviour
+public class SceneLOader : MonoBehaviour, ISaveable
 {
     public Transform playerTrans;
 
@@ -45,16 +45,25 @@ public class SceneLOader : MonoBehaviour
     {
         loadEventSO.LoadSceneRequestEvent += OnLoadRequestEvent;
         newGameEvent.OnEventRaised += NewGame;
+        ISaveable saveable = this;
+        saveable.RegisterSaveData();
     }
     private void OnDisable()
     {
         loadEventSO.LoadSceneRequestEvent -= OnLoadRequestEvent;
         newGameEvent.OnEventRaised -= NewGame;
-
+        ISaveable saveable = this;
+        saveable.UnRegisterSaveData();
     }
 
     public void NewGame()
     {
+        // Reset persisted state so new game starts fresh
+        if (PersistenceManager.Instance != null)
+        {
+            PersistenceManager.Instance.ClearAll();
+        }
+
         locationTOGO = firstLoadScene;
         // OnLoadRequestEvent(locationTOGO, firstPosition, true);
         loadEventSO.RaiseLoadRequestEvent(locationTOGO, firstPosition, true);
@@ -116,5 +125,32 @@ public class SceneLOader : MonoBehaviour
         isLoading = false;
         if (currentLoadScene.sceneTpye == SceneTpye.Location)
             afterSceneLoadedEvent.RaiseEvent();
+    }
+
+    public DataDefinition GetDataID()
+    {
+        return GetComponent<DataDefinition>();
+    }
+
+    public void GetSaveData(Data data)
+    {
+        data.SaveGameScene(currentLoadScene);
+    }
+
+    public void LoadData(Data data)
+    {
+        var playerID = playerTrans.GetComponent<DataDefinition>().ID;
+        if (data.characterPosDict.ContainsKey(playerID))
+        {
+            positionTOGO = data.characterPosDict[playerID];
+            locationTOGO = data.LoadGameScene();
+
+            if (currentLoadScene.name != data.sceneName)
+            {
+                // Debug.Log("curr   " + currentLoadScene.name);
+                // Debug.Log("togo   " + data.sceneName);
+                OnLoadRequestEvent(locationTOGO, positionTOGO, true);
+            }
+        }
     }
 }

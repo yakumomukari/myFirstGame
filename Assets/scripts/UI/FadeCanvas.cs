@@ -8,6 +8,10 @@ public class FadeCanvas : MonoBehaviour
 {
     public Image fadeImage;
     public FadeEventSO fadeEvent;
+    private void Awake()
+    {
+        fadeImage.gameObject.SetActive(true);
+    }
     private void OnEnable()
     {
         fadeEvent.OnEventRaised += OnFadeEvent;

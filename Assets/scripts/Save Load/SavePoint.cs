@@ -8,9 +8,11 @@ using UnityEngine.Rendering.Universal;
 
 public class SavePoint : MonoBehaviour, IInteractable
 {
-    public VoidEventSO loadGameDataSO;
+    public VoidEventSO saveDataSO;
 
     private SpriteRenderer spriteRenderer;
+
+    public string id; // 唯一 ID，用于持久化
 
     public GameObject lightObj;
     public Sprite closeimage;
@@ -40,28 +42,38 @@ public class SavePoint : MonoBehaviour, IInteractable
 
     private void OnEnable()
     {
+        // 从持久化管理器读取状态（若已存在）
+        if (!string.IsNullOrEmpty(id) && PersistenceManager.Instance != null)
+        {
+            isDone = PersistenceManager.Instance.GetBool(id, isDone);
+        }
+
         spriteRenderer.sprite = isDone ? openimage : closeimage;
         lightObj.SetActive(isDone);
     }
 
     public void TriggerAction()
     {
-        if (!isDone)
+        isDone = true;
+        spriteRenderer.sprite = openimage;
+        // this.gameObject.tag = "Untagged";
+        lightObj.SetActive(true);
+
+        // 保存状态
+        if (!string.IsNullOrEmpty(id) && PersistenceManager.Instance != null)
         {
-            isDone = true;
-            spriteRenderer.sprite = openimage;
-            this.gameObject.tag = "Untagged";
-            lightObj.SetActive(true);
-
-            // 触发闪光特效
-            if (colorAdjustments != null)
-            {
-                StartCoroutine(PlayFlashEffect());
-            }
-
-            //TODO save
-            loadGameDataSO.RaiseEvent();
+            PersistenceManager.Instance.SetBool(id, true);
         }
+
+        // 触发闪光特效
+        if (colorAdjustments != null)
+        {
+            StartCoroutine(PlayFlashEffect());
+        }
+
+        //TODO save
+        saveDataSO.RaiseEvent();
+
     }
 
     /// <summary>
@@ -98,5 +110,6 @@ public class SavePoint : MonoBehaviour, IInteractable
 
         // 确保降回初始值
         colorAdjustments.postExposure.value = initialExposure;
+        targetVolume.gameObject.SetActive(false);
     }
 }
