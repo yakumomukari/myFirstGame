@@ -13,6 +13,11 @@ public class PlayerController : MonoBehaviour
 	public VoidEventSO loadDataEvent;
 	public VoidEventSO backToMenuEvent;
 
+	public VoidEventSO playLoadButtonEvent;
+
+	public VoidEventSO pauseGameEvent;
+	public FloatEventSO inPausePanelEvent;
+
 
 	public PlayerInputControl inputControl;
 	private PlayerAudioController playerAudioController;
@@ -64,6 +69,9 @@ public class PlayerController : MonoBehaviour
 		inputControl.Gameplay.Attack.started += PlayerAttack;
 		// slide
 		inputControl.Gameplay.Slide.started += PlayerSlide;
+		inputControl.Gameplay.Load.started += PlayLoadButton;
+		// inputControl.Gameplay.Pause.started += PauseGameSetting;
+		inputControl.UIControl.Pause.started += PauseGameSetting;
 
 		wallJumpTimeCounter = wallJumpTime;
 		inputControl.Enable();
@@ -72,10 +80,12 @@ public class PlayerController : MonoBehaviour
 
 	private void OnEnable()
 	{
+		inputControl.UIControl.Enable();
 		loadEventSO.LoadSceneRequestEvent += OnLoadingEvent;
 		afterLoadedSO.OnEventRaised += AfterLoadSceneEvent;
 		loadDataEvent.OnEventRaised += OnLoadDataEvent;
 		backToMenuEvent.OnEventRaised += OnBackToMenuEvent;
+		inPausePanelEvent.OnEventRaised += OnPausePanelEvent;
 	}
 
 
@@ -86,6 +96,7 @@ public class PlayerController : MonoBehaviour
 		loadEventSO.LoadSceneRequestEvent -= OnLoadingEvent;
 		loadDataEvent.OnEventRaised -= OnLoadDataEvent;
 		backToMenuEvent.OnEventRaised -= OnBackToMenuEvent;
+		inPausePanelEvent.OnEventRaised -= OnPausePanelEvent;
 	}
 
 
@@ -103,6 +114,26 @@ public class PlayerController : MonoBehaviour
 		WallJumpCount();
 	}
 
+	private void OnPausePanelEvent(float v)
+	{
+		if (v == 1f)
+		{
+			inputControl.Gameplay.Enable();
+		}
+		if (v == 0f)
+		{
+			inputControl.Gameplay.Disable();
+		}
+	}
+	private void PauseGameSetting(InputAction.CallbackContext context)
+	{
+		pauseGameEvent.RaiseEvent();
+	}
+	private void PlayLoadButton(InputAction.CallbackContext context)
+	{
+		if (physicsCheck.isGround && !isAttack && !isSlide && !isWallJump && !isWallSlide)
+			playLoadButtonEvent.RaiseEvent();
+	}
 	private void OnLoadDataEvent()
 	{
 		isDead = false;

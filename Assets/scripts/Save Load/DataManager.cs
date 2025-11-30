@@ -10,8 +10,10 @@ public class DataManager : MonoBehaviour
     public static DataManager instance;
     public VoidEventSO saveDataEvent;
     public VoidEventSO loadDataEvent;
+    public VoidEventSO playLoadButtonEvent;
     private List<ISaveable> saveList = new List<ISaveable>();
     private Data saveData;
+
     private void Awake()
     {
         if (instance == null)
@@ -37,20 +39,13 @@ public class DataManager : MonoBehaviour
     {
         saveDataEvent.OnEventRaised += Save;
         loadDataEvent.OnEventRaised += Load;
+        playLoadButtonEvent.OnEventRaised += Load;
     }
     private void OnDisable()
     {
         saveDataEvent.OnEventRaised -= Save;
         loadDataEvent.OnEventRaised -= Load;
-    }
-    private void Update()
-    {
-        if (!playerController.isDead)
-            if (Keyboard.current.lKey.wasPressedThisFrame || Gamepad.current.rightShoulder.wasPressedThisFrame)
-            {
-                Load();
-                // Debug.Log("fuck");
-            }
+        playLoadButtonEvent.OnEventRaised -= Load;
     }
     public void RegisterSaveData(ISaveable saveable)
     {

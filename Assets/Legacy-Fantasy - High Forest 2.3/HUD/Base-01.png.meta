@@ -106,6 +106,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -152,7 +178,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base-01_2
+      name: Stick
       rect:
         serializedVersion: 2
         x: 374
@@ -320,7 +346,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base-01_10
+      name: Y
       rect:
         serializedVersion: 2
         x: 140
@@ -677,7 +703,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base-01_27
+      name: X
       rect:
         serializedVersion: 2
         x: 140
@@ -1076,7 +1102,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base-01_46
+      name: A
       rect:
         serializedVersion: 2
         x: 140
@@ -1250,7 +1276,7 @@ TextureImporter:
         x: 5
         y: 84
         width: 4
-        height: 24
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1370,7 +1396,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base-01_60
+      name: setting
       rect:
         serializedVersion: 2
         x: 50
@@ -1748,7 +1774,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base-01_78
+      name: B
       rect:
         serializedVersion: 2
         x: 140
@@ -1790,7 +1816,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base-01_80
+      name: Reverse
       rect:
         serializedVersion: 2
         x: 4
@@ -2209,6 +2235,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Base-01_1
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 101
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e016b2fe23a8594aa520fd6dcca9ae9
+      internalID: 141528027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2220,8 +2267,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      A: -1095832709
+      B: -1720667905
       Base-01_0: -759685480
-      Base-01_10: -949242109
+      Base-01_1: 141528027
       Base-01_11: 1603367947
       Base-01_12: -1272255599
       Base-01_13: 1905493850
@@ -2230,7 +2279,6 @@ TextureImporter:
       Base-01_17: 1592831571
       Base-01_18: -652976766
       Base-01_19: 606818089
-      Base-01_2: 655774161
       Base-01_20: -999625525
       Base-01_21: -927516023
       Base-01_22: 836198526
@@ -2238,7 +2286,6 @@ TextureImporter:
       Base-01_24: -1684521197
       Base-01_25: 175957369
       Base-01_26: 1484821485
-      Base-01_27: -941464451
       Base-01_28: 813829825
       Base-01_3: -601568934
       Base-01_30: -1769657785
@@ -2258,7 +2305,6 @@ TextureImporter:
       Base-01_43: 47367560
       Base-01_44: -44132825
       Base-01_45: -2116402137
-      Base-01_46: -1095832709
       Base-01_47: 1551925951
       Base-01_48: -2092127138
       Base-01_49: -1114931844
@@ -2274,7 +2320,6 @@ TextureImporter:
       Base-01_58: 119385146
       Base-01_59: -1114873371
       Base-01_6: 2093106435
-      Base-01_60: -104436175
       Base-01_61: 1483261993
       Base-01_62: 1131608518
       Base-01_63: 1964359334
@@ -2291,10 +2336,8 @@ TextureImporter:
       Base-01_75: 133917276
       Base-01_76: -499438965
       Base-01_77: 110897454
-      Base-01_78: -1720667905
       Base-01_79: 559120189
       Base-01_8: 1713936546
-      Base-01_80: 2096473696
       Base-01_82: 2076438256
       Base-01_83: -1248248251
       Base-01_84: -1882772220
@@ -2320,6 +2363,11 @@ TextureImporter:
       Base-healthfront: -1729461433
       Base-powerfront: 1152342711
       Base_framehealth: 1487350376
+      Reverse: 2096473696
+      Stick: 655774161
+      X: -941464451
+      Y: -949242109
+      setting: -104436175
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

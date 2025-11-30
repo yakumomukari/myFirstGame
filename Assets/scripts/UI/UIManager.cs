@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,10 +16,26 @@ public class UIManager : MonoBehaviour
     public VoidEventSO loadDataEvent;
     public VoidEventSO gameOverEvent;
     public VoidEventSO backToMenuEvent;
+    public FloatEventSO inPausePanelEvent;
+    public FloatEventSO syncVolumeEvent;
+    public VoidEventSO pauseGameEvent;
 
 
     public GameObject gameOverPanel;
     public GameObject restartBTN;
+    public GameObject mobileTouch;
+
+    public Button settingButton;
+    public GameObject pausePanel;
+    public Slider volumeSlider;
+    private void Awake()
+    {
+#if UNITY_STANDALONE
+        mobileTouch.SetActive(false);
+#endif
+        settingButton.onClick.AddListener(TogglePausePanel);
+    }
+
     private void OnEnable()
     {
         healthEvent.OnEventRaised += OnHealthEvent;
@@ -25,7 +43,9 @@ public class UIManager : MonoBehaviour
         loadEventSO.LoadSceneRequestEvent += OnLoadEvent;
         loadDataEvent.OnEventRaised += OnLoadDataEvent;
         gameOverEvent.OnEventRaised += OnGameOverEvent;
-        backToMenuEvent.OnEventRaised += OnLoadDataEvent;
+        backToMenuEvent.OnEventRaised += OnBackToMenuEvent;
+        pauseGameEvent.OnEventRaised += TogglePausePanel;
+        syncVolumeEvent.OnEventRaised += OnSyncVolumeEvent;
     }
 
     private void OnDisable()
@@ -35,7 +55,37 @@ public class UIManager : MonoBehaviour
         powerEvent.OnEventRaised -= OnPowerEvent;
         loadDataEvent.OnEventRaised -= OnLoadDataEvent;
         gameOverEvent.OnEventRaised -= OnGameOverEvent;
-        backToMenuEvent.OnEventRaised -= OnLoadDataEvent;
+        backToMenuEvent.OnEventRaised -= OnBackToMenuEvent;
+        pauseGameEvent.OnEventRaised -= TogglePausePanel;
+        syncVolumeEvent.OnEventRaised -= OnSyncVolumeEvent;
+    }
+
+    private void OnSyncVolumeEvent(float v)
+    {
+        volumeSlider.value = (v + 80) / 100;
+    }
+
+    private void OnBackToMenuEvent()
+    {
+        gameOverPanel.SetActive(false);
+        pausePanel.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    private void TogglePausePanel()
+    {
+        if (pausePanel.activeInHierarchy)
+        {
+            pausePanel.SetActive(false);
+            inPausePanelEvent.RaiseEvent(1f);
+            Time.timeScale = 1;
+        }
+        else
+        {
+            pausePanel.SetActive(true);
+            inPausePanelEvent.RaiseEvent(0f);
+            Time.timeScale = 0;
+        }
     }
 
     private void OnLoadDataEvent()
