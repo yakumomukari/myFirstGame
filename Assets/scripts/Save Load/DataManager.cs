@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(order: -100)]
 public class DataManager : MonoBehaviour
 {
+    public PlayerController playerController;
     public static DataManager instance;
     public VoidEventSO saveDataEvent;
+    public VoidEventSO loadDataEvent;
     private List<ISaveable> saveList = new List<ISaveable>();
     private Data saveData;
     private void Awake()
@@ -22,21 +25,32 @@ public class DataManager : MonoBehaviour
         saveData = new Data();
     }
 
+    /// <summary>
+    /// 清空当前内存中的保存数据（用于新游戏时重置）
+    /// </summary>
+    public void ClearSaveData()
+    {
+        saveData = new Data();
+    }
+
     private void OnEnable()
     {
         saveDataEvent.OnEventRaised += Save;
+        loadDataEvent.OnEventRaised += Load;
     }
     private void OnDisable()
     {
         saveDataEvent.OnEventRaised -= Save;
+        loadDataEvent.OnEventRaised -= Load;
     }
     private void Update()
     {
-        if (Keyboard.current.lKey.wasPressedThisFrame)
-        {
-            Load();
-            // Debug.Log("fuck");
-        }
+        if (!playerController.isDead)
+            if (Keyboard.current.lKey.wasPressedThisFrame || Gamepad.current.rightShoulder.wasPressedThisFrame)
+            {
+                Load();
+                // Debug.Log("fuck");
+            }
     }
     public void RegisterSaveData(ISaveable saveable)
     {

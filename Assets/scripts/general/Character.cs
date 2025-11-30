@@ -22,6 +22,8 @@ public class Character : MonoBehaviour, ISaveable
 	public UnityEvent OnDie;
 
 	public VoidEventSO newGameEvent;
+
+	public float fadeDuration;
 	private void Awake()
 	{
 		playerController = GetComponent<PlayerController>();
@@ -131,11 +133,18 @@ public class Character : MonoBehaviour, ISaveable
 		var nowID = GetDataID().ID;
 		if (data.characterPosDict.ContainsKey(nowID))
 		{
-			transform.position = data.characterPosDict[nowID];
-			this.currentHealth = data.floatDict[nowID + "health"];
-			this.currentPower = data.floatDict[nowID + "power"];
-			OnHealthChange?.Invoke(this);
-			OnPowerChange?.Invoke(this);
+			StartCoroutine(Wait(data));
+			// Debug.Log("wait complete!");
 		}
+	}
+	private IEnumerator Wait(Data data)
+	{
+		var nowID = GetDataID().ID;
+		yield return new WaitForSeconds(fadeDuration);
+		transform.position = data.characterPosDict[nowID];
+		this.currentHealth = data.floatDict[nowID + "health"];
+		this.currentPower = data.floatDict[nowID + "power"];
+		OnHealthChange?.Invoke(this);
+		OnPowerChange?.Invoke(this);
 	}
 }

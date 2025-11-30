@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
 	public SceneLoadEventSO loadEventSO;
 	public VoidEventSO afterLoadedSO;
 
+	public VoidEventSO loadDataEvent;
+	public VoidEventSO backToMenuEvent;
+
 
 	public PlayerInputControl inputControl;
 	private PlayerAudioController playerAudioController;
@@ -63,14 +66,16 @@ public class PlayerController : MonoBehaviour
 		inputControl.Gameplay.Slide.started += PlayerSlide;
 
 		wallJumpTimeCounter = wallJumpTime;
+		inputControl.Enable();
 	}
 
 
 	private void OnEnable()
 	{
-		inputControl.Enable();
 		loadEventSO.LoadSceneRequestEvent += OnLoadingEvent;
 		afterLoadedSO.OnEventRaised += AfterLoadSceneEvent;
+		loadDataEvent.OnEventRaised += OnLoadDataEvent;
+		backToMenuEvent.OnEventRaised += OnBackToMenuEvent;
 	}
 
 
@@ -79,7 +84,11 @@ public class PlayerController : MonoBehaviour
 		inputControl.Disable();
 		afterLoadedSO.OnEventRaised -= AfterLoadSceneEvent;
 		loadEventSO.LoadSceneRequestEvent -= OnLoadingEvent;
+		loadDataEvent.OnEventRaised -= OnLoadDataEvent;
+		backToMenuEvent.OnEventRaised -= OnBackToMenuEvent;
 	}
+
+
 	private void Update()
 	{
 		inputDirection = inputControl.Gameplay.Move.ReadValue<Vector2>();
@@ -94,6 +103,16 @@ public class PlayerController : MonoBehaviour
 		WallJumpCount();
 	}
 
+	private void OnLoadDataEvent()
+	{
+		isDead = false;
+		inputControl.Enable();
+	}
+	private void OnBackToMenuEvent()
+	{
+		isDead = false;
+		// inputControl.Disable();
+	}
 	public void SlideWall()
 	{
 		if (!physicsCheck.isGround && physicsCheck.isWall && inputDirection.x != 0)

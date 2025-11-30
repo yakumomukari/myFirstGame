@@ -54,6 +54,12 @@ public class SavePoint : MonoBehaviour, IInteractable
 
     public void TriggerAction()
     {
+
+        // 触发闪光特效
+        if (colorAdjustments != null && !isDone)
+        {
+            StartCoroutine(PlayFlashEffect());
+        }
         isDone = true;
         spriteRenderer.sprite = openimage;
         // this.gameObject.tag = "Untagged";
@@ -65,11 +71,6 @@ public class SavePoint : MonoBehaviour, IInteractable
             PersistenceManager.Instance.SetBool(id, true);
         }
 
-        // 触发闪光特效
-        if (colorAdjustments != null)
-        {
-            StartCoroutine(PlayFlashEffect());
-        }
 
         //TODO save
         saveDataSO.RaiseEvent();

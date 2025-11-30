@@ -31,6 +31,8 @@ public class SceneLOader : MonoBehaviour, ISaveable
 
     public FadeEventSO fadeEvent;
 
+    public VoidEventSO BackToMenuEvent;
+
     //TODO mainmenu
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class SceneLOader : MonoBehaviour, ISaveable
     {
         loadEventSO.LoadSceneRequestEvent += OnLoadRequestEvent;
         newGameEvent.OnEventRaised += NewGame;
+        BackToMenuEvent.OnEventRaised += OnBackMenuEvent;
         ISaveable saveable = this;
         saveable.RegisterSaveData();
     }
@@ -52,8 +55,15 @@ public class SceneLOader : MonoBehaviour, ISaveable
     {
         loadEventSO.LoadSceneRequestEvent -= OnLoadRequestEvent;
         newGameEvent.OnEventRaised -= NewGame;
+        BackToMenuEvent.OnEventRaised -= OnBackMenuEvent;
         ISaveable saveable = this;
         saveable.UnRegisterSaveData();
+    }
+
+    private void OnBackMenuEvent()
+    {
+        locationTOGO = menuLoadScene;
+        loadEventSO.RaiseLoadRequestEvent(locationTOGO, menuPosition, true);
     }
 
     public void NewGame()
@@ -62,6 +72,12 @@ public class SceneLOader : MonoBehaviour, ISaveable
         if (PersistenceManager.Instance != null)
         {
             PersistenceManager.Instance.ClearAll();
+        }
+
+        // 清空内存中的 DataManager 保存数据，避免加载到旧存档
+        if (DataManager.instance != null)
+        {
+            DataManager.instance.ClearSaveData();
         }
 
         locationTOGO = firstLoadScene;
@@ -99,6 +115,7 @@ public class SceneLOader : MonoBehaviour, ISaveable
             // if (currentLoadScene.sceneTpye == SceneTpye.Location) uiManager.playerStateBar.gameObject.SetActive(false);
         }
         yield return new WaitForSeconds(fadeDuratrion);
+        // Debug.Log("fadeComplete!");
         yield return currentLoadScene.sceneRefetence.UnLoadScene();
         playerTrans.gameObject.SetActive(false);
         LoadNewScene();
@@ -144,13 +161,15 @@ public class SceneLOader : MonoBehaviour, ISaveable
         {
             positionTOGO = data.characterPosDict[playerID];
             locationTOGO = data.LoadGameScene();
+            // Debug.Log(locationTOGO);
+            // Debug.Log(locationTOGO.name);
+            OnLoadRequestEvent(locationTOGO, positionTOGO, true);
 
-            if (currentLoadScene.name != data.sceneName)
-            {
-                // Debug.Log("curr   " + currentLoadScene.name);
-                // Debug.Log("togo   " + data.sceneName);
-                OnLoadRequestEvent(locationTOGO, positionTOGO, true);
-            }
+            // else
+            // {
+            //     OnLoadRequestEvent(locationTOGO, positionTOGO, false);
+
+            // }
         }
     }
 }

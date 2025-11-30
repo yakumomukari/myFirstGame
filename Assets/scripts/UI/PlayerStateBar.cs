@@ -14,6 +14,10 @@ public class PlayerStateBar : MonoBehaviour
         {
             healthDelayImage.fillAmount -= Time.deltaTime * 0.1f;
         }
+        else
+        {
+            healthDelayImage.fillAmount = healthImage.fillAmount;
+        }
         // if (powerImage.fillAmount != 1)
         // {
         //     powerImage.fillAmount += Time.deltaTime;

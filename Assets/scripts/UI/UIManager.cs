@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,20 +11,44 @@ public class UIManager : MonoBehaviour
     public CharacterEventSO healthEvent;
     public CharacterEventSO powerEvent;
     public SceneLoadEventSO loadEventSO;
+    public VoidEventSO loadDataEvent;
+    public VoidEventSO gameOverEvent;
+    public VoidEventSO backToMenuEvent;
+
+
+    public GameObject gameOverPanel;
+    public GameObject restartBTN;
     private void OnEnable()
     {
         healthEvent.OnEventRaised += OnHealthEvent;
         powerEvent.OnEventRaised += OnPowerEvent;
         loadEventSO.LoadSceneRequestEvent += OnLoadEvent;
+        loadDataEvent.OnEventRaised += OnLoadDataEvent;
+        gameOverEvent.OnEventRaised += OnGameOverEvent;
+        backToMenuEvent.OnEventRaised += OnLoadDataEvent;
     }
-
 
     private void OnDisable()
     {
         healthEvent.OnEventRaised -= OnHealthEvent;
         loadEventSO.LoadSceneRequestEvent -= OnLoadEvent;
         powerEvent.OnEventRaised -= OnPowerEvent;
+        loadDataEvent.OnEventRaised -= OnLoadDataEvent;
+        gameOverEvent.OnEventRaised -= OnGameOverEvent;
+        backToMenuEvent.OnEventRaised -= OnLoadDataEvent;
     }
+
+    private void OnLoadDataEvent()
+    {
+        gameOverPanel.SetActive(false);
+    }
+
+    private void OnGameOverEvent()
+    {
+        gameOverPanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(restartBTN);
+    }
+
     private void OnLoadEvent(GameSceneEventSO sceneTOGO, Vector3 arg1, bool arg2)
     {
         if (sceneTOGO.sceneTpye == SceneTpye.Menu)

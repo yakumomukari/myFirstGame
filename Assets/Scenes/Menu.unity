@@ -2398,6 +2398,53 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1071656584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1071656586}
+  - component: {fileID: 1071656585}
+  m_Layer: 0
+  m_Name: BGM MENU
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1071656585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071656584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee284b7ab9310f40b6e42cadfec7ea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playAudioEvent: {fileID: 11400000, guid: 70bcf48ad7e896045a5f9e201c8a009d, type: 2}
+  audioClip: {fileID: 8300000, guid: 048d3ba7124344e41ac8bea0c4900612, type: 3}
+  playOnEnable: 1
+--- !u!4 &1071656586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071656584}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 864.3448, y: 485.07895, z: 7.5044336}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1193720102
 GameObject:
   m_ObjectHideFlags: 0
@@ -6033,7 +6080,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1358564508}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 6ceeb03b8b6941d4e9a9220fa199edb1, type: 2}
+        m_TargetAssemblyTypeName: VoidEventSO, Assembly-CSharp
+        m_MethodName: RaiseEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1433886628
 GameObject:
   m_ObjectHideFlags: 0
@@ -7926,3 +7985,4 @@ SceneRoots:
   - {fileID: 1433886630}
   - {fileID: 1472153387}
   - {fileID: 1900121214}
+  - {fileID: 1071656586}

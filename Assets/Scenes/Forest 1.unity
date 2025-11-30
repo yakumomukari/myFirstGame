@@ -52780,7 +52780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playAudioEvent: {fileID: 11400000, guid: 70bcf48ad7e896045a5f9e201c8a009d, type: 2}
-  audioClip: {fileID: 8300000, guid: 10ea0c6ecdfbe594d85161c221bce875, type: 3}
+  audioClip: {fileID: 8300000, guid: 7b7ba4cd0d72f6343a893c9e3697f84e, type: 3}
   playOnEnable: 1
 --- !u!4 &2056335369
 Transform:

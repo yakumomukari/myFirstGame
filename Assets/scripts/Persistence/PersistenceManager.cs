@@ -25,6 +25,17 @@ public class PersistenceManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void EnsureExists()
+    {
+        if (Instance == null)
+        {
+            var go = new GameObject("_PersistenceManager");
+            DontDestroyOnLoad(go);
+            Instance = go.AddComponent<PersistenceManager>();
+        }
+    }
+
     public bool GetBool(string id, bool defaultValue = false)
     {
         if (string.IsNullOrEmpty(id)) return defaultValue;
